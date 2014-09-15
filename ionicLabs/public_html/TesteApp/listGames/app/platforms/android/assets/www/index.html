@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html ng-app="listGame">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>List Games</title>
+
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+
+        <!-- your app's js -->
+        <script src="js/app.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/services.js"></script>
+    </head>
+    <body animation="slide-left-right-ios7">
+
+      <div>       
+        <ion-nav-view></ion-nav-view>
+      </div>
+
+      <script id="login.html" type="text/ng-template">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Login</h1>
+          </ion-header-bar>
+          
+          <ion-content>
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Usuario</span>
+              <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Senha</span>
+              <input type="password" ng-model="user.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" 
+            ng-click="logar(user)">
+              Logar
+            </button>
+          </div>
+        </ion-content>
+      </script>
+
+    <script id="home.html" type="text/ng-template">
+      <ion-header-bar class="bar-positive">
+          <div class="buttons">
+              <button class="button button-icon icon ion-ios7-minus-outline" 
+                      ng-click="data.showDelete = !data.showDelete; data.showReorder = false">
+              </button>
+              <h1 class="title">List Games Ionic</h1>
+
+              <a class="button button-icon icon ion-log-out"
+              href="#/login"></a>
+          </div>
+      </ion-header-bar>
+
+      <ion-content>
+          <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+              <ion-item ng-repeat="item in items" 
+                        item="item"
+                        href="#/item/{{item.id}}">
+                  {{ item }}
+                  <ion-delete-button class="ion-minus-circled" 
+                                     ng-click="onItemDelete($index)">
+                  </ion-delete-button>
+              </ion-item>
+
+          </ion-list>
+      </ion-content>
+      <ion-footer-bar class="bar-positive">
+        <button class="button button-icon pull-right"
+                ng-click="newGame()">
+            <i class="icon ion-compose"></i>
+        </button>
+    </ion-footer-bar>
+    </script>
+
+    <script id="new-game.html" type="text/ng-template">
+        <div class="modal">
+          <ion-header-bar class="bar-positive">
+            <h1 class="title">Novo Jogo</h1>
+            <div class="buttons">
+              <button class="button icon-left ion-chevron-left"
+                ng-click="closeNewGame()">
+                  &ensp;Cancel
+              </button>
+            </div>
+          </ion-header-bar>
+
+          <ion-content>
+            <form ng-submit="createGame(game)">
+              <div class="list">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">Nome do Jogo</span>
+                  <input type="text" placeholder="Jogo"
+                  ng-model="game.title">
+                </label>
+              </div>
+              <div class="padding">
+                <button class="button button-block button-positive">
+                  Inserir Jogo
+                </button>
+              </div>
+            </form>
+          </ion-content>
+        </div>
+    </script>
+
+    </body>
+</html>
